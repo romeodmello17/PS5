@@ -19,20 +19,21 @@ public class PlayStation5Simulator {
 		PSregistration register = new PSregistration();
 
 		switch (x) {
-		case 1:
-			register.signin();
-		case 2:
-			register.login();
-		case 3:
-			register.homepage();
-			break;
-		case 4:
-			System.out.println("Bye Bye");
-			System.exit(0);
-			break;
-		default:
-			System.err.println("Enter the above value only");
-			main(null);
+			case 1:
+				register.signin();
+			case 2:
+				register.createAcc();
+				;
+			case 3:
+
+				break;
+			case 4:
+				System.out.println("Bye Bye");
+				System.exit(0);
+				break;
+			default:
+				System.err.println("Enter the above value only");
+				main(null);
 		}
 	}
 
