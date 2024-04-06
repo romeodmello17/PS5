@@ -4,8 +4,10 @@ import java.util.Scanner;
 
 public class PlayStation5Simulator {
 	static {
-		System.out.println("Welcome to PlayStation 5");
-		System.out.println("");
+		System.out.println(
+				"                                                              					 Welcome to PlayStation 5");
+		System.out.println(
+				"----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
 	}
 
 	public static void main(String[] args) {
@@ -15,16 +17,20 @@ public class PlayStation5Simulator {
 		System.out.println("Enter 4 to Exit");
 
 		Scanner sc = new Scanner(System.in);
-		int x = sc.nextInt();
-		PSregistration register = new PSregistration();
+		int Choose = sc.nextInt();
+		sc.nextLine();
+		//PSregistration register = new PSregistration();
+		Homepage  homePage = new Homepage();
 
-		switch (x) {
+		switch (Choose) {
 			case 1:
-				register.signin();
+				// register.signIn();
 			case 2:
-				register.createAcc();
-				;
+
+				// register.createAcc();
+
 			case 3:
+				homePage.displayHomePage();
 
 				break;
 			case 4:
@@ -32,7 +38,7 @@ public class PlayStation5Simulator {
 				System.exit(0);
 				break;
 			default:
-				System.err.println("Enter the above value only");
+				System.err.println("Choose above value only");
 				main(null);
 		}
 	}

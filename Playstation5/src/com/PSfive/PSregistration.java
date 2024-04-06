@@ -1,5 +1,6 @@
 package com.PSfive;
 
+import java.util.Random;
 import java.util.Scanner;
 
 public class PSregistration {
@@ -8,40 +9,98 @@ public class PSregistration {
     String cpassword;
     long contact;
     String mail;
+    String name;
+    String lastname;
     String location;
     boolean isRegistered = false;
+    boolean signPass = false;
 
-    public void signin() {
+    Homepage  homePageObj = new Homepage();
+    
+
+    public void signIn() {
         if (isRegistered == false) {
-            System.out.println("Please register first by Creating an PS Account!");
+            System.out.println("Please register by Creating an PS Account!");
+            createAcc();
         }
         Scanner sc = new Scanner(System.in);
-        System.out.println("Press 1 to sign in with contact");
-        System.out.println("Press 2 to sign in with email id");
+        System.out.println("Press 1 to sign in with Username");
+        System.out.println("Press 2 to sign in with Sign-In ID");
+        int n = sc.nextInt();
+        switch (n) {
+            case 1:
+                System.out.println("Enter your registered Username : ");
+                sc.nextLine();
+                String username = sc.nextLine();
+                if (username.equals(this.username)) {
 
+                } else {
+                    System.out.println("Username does not match! Try again.");
+                    signIn();
+                }
+                break;
+            case 2:
+                System.out.println("Enter your registered Sign-In ID : ");
+                sc.nextLine();
+                String mail = sc.nextLine();
+                if (mail.equals(this.mail)) {
+                } else {
+                    System.out.println("Sign-In ID does not match! Try again.");
+                    signIn();
+                }
+                break;
+
+            default:
+              
+        }
+                if (signPass == false) {
+                    System.out.println("Enter your Password");
+                    String pass = sc.nextLine();
+                    if (pass.equals(this.password)) {
+                        System.out.println("Sign In Successful Welcome " + this.name + " " + this.lastname);
+                        signPass=true;
+                    }
+                }
+                homePageObj.displayHomePage();
     }
 
     // Account Creation Method
     public void createAcc() {
         Scanner sc = new Scanner(System.in);
         System.out.println("SONY");
-        System.out.print("Enter your Country");
+        System.out.print("Enter your Country : ");
         location = sc.nextLine();
 
-        do {
-            System.out.print("Username : ");
-            username = sc.nextLine();
-
-            if (username.isEmpty()) {
-                System.err.println("Invalid Username! Please enter only alphanumeric characters.");
-            }
-        } while (username.isEmpty());
-
+        emailValidation();
         passwordValidation();
         contactValidation();
+        onlineID();
+        captcha();
 
+        System.out.println("Your account has been created successfully.");
         isRegistered = true;
+        signIn();
 
+    }
+
+    // email Validation method
+    public void emailValidation() {
+        Scanner sc = new Scanner(System.in);
+        boolean isValid = false;
+        do {
+            System.out.println("Sign-In ID");
+            mail = sc.nextLine();
+            if (isValidEmail(mail)) {
+                isValid = true;
+            } else {
+                System.err.println("Invalid email. Please enter a valid email address.");
+                isValid = false;
+            }
+        } while (!isValid);
+    }
+
+    public static boolean isValidEmail(String mail) {
+        return mail.contains("@") && mail.contains(".");
     }
 
     // Password Validation Method
@@ -68,7 +127,7 @@ public class PSregistration {
     }
 
     // Strong password method
-    public boolean isStrongPass(String password) {
+    public static boolean isStrongPass(String password) {
         if (password.length() < 8) {
             return false;
         }
@@ -96,17 +155,78 @@ public class PSregistration {
     public void contactValidation() {
         Scanner sc = new Scanner(System.in);
         boolean isValid = false;
-
         do {
             System.out.println("Enter your contact number: ");
-            contact = sc.nextLong();
-            if (contact > 999999999L && contact < 10000000000L) {
-                System.out.println("Contact is valid");
+            if (sc.hasNextLong()) {
+                long contact = sc.nextLong();
+                if (contact >= 999999999L && contact <= 9999999999L) {
+                    isValid = true;
+                } else {
+                    System.err.println("Enter a 10-digit number");
+                    isValid = false;
+                    sc.nextLine();
+                }
             } else {
-                System.err.println("Enter 10 digits number");
+                System.err.println("Enter a valid number");
+                isValid = false;
+                sc.nextLine();
             }
         } while (!isValid);
+    }
+
+    // online ID method
+    public void onlineID() {
+        Scanner sc = new Scanner(System.in);
+        do {
+            System.out.print("Username : ");
+            username = sc.nextLine();
+
+            if (username.isEmpty()) {
+                System.err.println("Invalid Username! Please enter only alphanumeric characters.");
+            }
+        } while (username.isEmpty());
+
+        do {
+            System.out.print("First Name : ");
+            name = sc.nextLine();
+
+            if (name.isEmpty()) {
+                System.err.println("Invalid Username! Please enter only alphanumeric characters.");
+            }
+        } while (name.isEmpty());
+
+        do {
+            System.out.print("Last Name : ");
+            lastname = sc.nextLine();
+
+            if (lastname.isEmpty()) {
+                System.err.println("Invalid Username! Please enter only alphanumeric characters.");
+            }
+        } while (lastname.isEmpty());
 
     }
 
+    public static void captcha() {
+        Scanner sc = new Scanner(System.in);
+        Random r = new Random();
+        String captcha = "";
+        do {
+            captcha = "";
+            while (captcha.length() < 6) {
+                int n = r.nextInt(122);
+                if ((n >= 97 && n <= 122) || (n >= 48 && n <= 57)) {
+                    captcha = captcha + (char) n;
+                }
+            }
+            System.out.println("Enter the Below Captcha");
+            System.out.println(captcha);
+            String userCaptcha = sc.nextLine();
+            if (captcha.equals(userCaptcha)) {
+                System.out.println("Correct Captcha!");
+                break;
+            } else {
+                System.out.println("Incorrect Captcha! Try Again.");
+            }
+        } while (true);
+    }
 }
