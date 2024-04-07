@@ -83,10 +83,12 @@ public class Store {
                 adventureGame();
                 break;
             case 5:
-                // simulationGame();
+                simulation();
+                simulationGame();
                 break;
             case 6:
-                // homePage();
+                Homepage hp = new Homepage();
+                hp.displayHomePage();
                 break;
 
             default:
@@ -208,7 +210,7 @@ public class Store {
                 "UNO makes its return with new exciting features! Match cards by color or value and play action cards to change things up. Race against others to empty your hand before everyone else in Classic play or customize your experience with House Rules.",
                 499, "03/01/17", "Ubisoft Entertainment", 3));
         strategyGames.add(new Store("CRUSADER KINGS III",
-                "Love, fight, scheme, and claim greatness. Determine your noble house’s legacy in the sprawling grand strategy of Crusader Kings III.",
+                "Love, fight, scheme, and claim greatness. Determine your noble house's legacy in the sprawling grand strategy of Crusader Kings III.",
                 2699, "01/08/19", "Paradox Development Studio", 8));
 
     }
@@ -226,6 +228,7 @@ public class Store {
         System.out.println("");
         System.out.println(
                 "Adventurous games are immersive experiences where players embark on thrilling journeys, explore diverse landscapes, encounter unique characters, and unravel mysteries while navigating through captivating storylines and overcoming challenges.");
+        System.out.println("");
         int count = 1;
         for (Store games : adventureGames) {
             System.out.println(count++ + ". " + games);
@@ -234,6 +237,60 @@ public class Store {
     }
 
     public static void adventure() {
+        adventureGames.add(new Store("BALDUR'S GATE 3",
+                "Baldur's Gate 3 is a story-rich, party-based RPG set in the universe of Dungeons & Dragons, where your choices shape a tale of fellowship and betrayal, survival and sacrifice, and the lure of absolute power.",
+                2999, "03/08/23", "Larian Studios", 150));
+        adventureGames.add(new Store("LETHAL COMPANY",
+                "A co-op horror about scavenging at abandoned moons to sell scrap to the Company.", 480, "24/10/23",
+                "Zeekerss", 1));
+        adventureGames.add(new Store("STREET FIGHTER 6",
+                "Here comes Capcom's newest challenger! Street Fighter™ 6 launches worldwide on June 2nd, 2023 and represents the next evolution of the Street Fighter series! Street Fighter 6 spans three distinct game modes, including World Tour, Fighting Ground and Battle Hub.",
+                3999, "01/01/23", "CAPCOM Co., Ltd.", 60));
+        adventureGames.add(new Store("CONTENT WARNING",
+                "Film your friends doing scary things to become SpöökTube famous! (strongly advised to not go alone)",
+                400, "01/04/24", "Landfall Publishing", 6));
+        adventureGames.add(new Store("TOM CLANCY'S THE DIVISION 2",
+                "HISTORY WILL REMEMBER In Tom Clancy's The Division 2, the fate of the free world is on the line. Lead a team of elite agents into a post-pandemic Washington DC to restore order and prevent the collapse of the city.",
+                1499, "12/01/23", "Ubisoft", 77));
+
+    }
+
+    public static void simulationGame() {
+        for (int i = 0; i < 50; i++) {
+            System.out.print("            -");
+        }
+        System.out.println();
+        System.out.println(
+                "                                                                                                   SIMULATION GAMES");
+        for (int i = 0; i < 50; i++) {
+            System.out.print("            -");
+        }
+        System.out.println("");
+        System.out.println(
+                "Simulation games provide immersive experiences where players can simulate various real-world or fantastical activities, environments, or scenarios, allowing them to engage in realistic or imaginative simulations of life, business, nature, or other aspects, often emphasizing strategy, creativity, and decision-making.");
+        System.out.println("");
+        int count = 1;
+        for (Store games : simulationGames) {
+            System.out.println(count++ + ". " + games);
+        }
+    }
+
+    public static void simulation() {
+        simulationGames.add(new Store("ARMA 3",
+                "Experience true combat gameplay in a massive military sandbox. Deploying a wide variety of single- and multiplayer content, over 20 vehicles and 40 weapons, and limitless opportunities for content creation, this is the PC's premier military game.",
+                1999, "12/09/12", "Bohemia Interactive", 70));
+        simulationGames.add(new Store("WAR THUNDER",
+                "War Thunder is the most comprehensive free-to-play, cross-platform, MMO military game dedicated to aviation, armoured vehicles, and naval craft, from the early 20th century to the most advanced modern combat units.",
+                0, "12/08/13", "Gaijin Entertainment", 95));
+        simulationGames.add(new Store("NBA 2K24",
+                "Experience hoops culture in NBA 2K24. Enjoy loads of action and limitless personalized MyPLAYER options in MyCAREER. Build your perfect lineup in MyTEAM.",
+                3299, "07/09/23", "Visula Concepts 2K", 150));
+        simulationGames.add(new Store("SUPERMARKET SIMULATOR",
+                "Run your own supermarket. Stock shelves, set prices as you'd like, take payments, hire staff, expand and design your store. Online orders & delivery, shoplifters, security, local market are upcoming.",
+                610, "20/02/24", "Nokta Games", 5));
+        simulationGames.add(new Store("THE SIMS 4",
+                "Play with life and discover the possibilities. Unleash your imagination and create a world of Sims that’s wholly unique. Explore and customize every detail from Sims to homes-and much more.",
+                0, "02/09/14", "Maxis Arts", 51));
 
     }
 

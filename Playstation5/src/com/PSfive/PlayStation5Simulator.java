@@ -13,7 +13,7 @@ public class PlayStation5Simulator {
 	public static void main(String[] args) {
 		System.out.println("Enter 1 to Sign in");
 		System.out.println("Enter 2 to Create an Account");
-		System.out.println("Enter 3 to Guest Login");
+		System.out.println("Enter 3 to Home Page");
 		System.out.println("Enter 4 to Exit");
 
 		Scanner sc = new Scanner(System.in);
