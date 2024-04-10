@@ -2,12 +2,11 @@ package com.PSfive;
 
 import java.util.Scanner;
 
-public class Homepage {
-    
-    
+public class Homepage extends PSregistration {
+
     Scanner sc = new Scanner(System.in);
-    Store  store = new Store();
-  
+    Store store = new Store();
+boolean duplicateObj = false;
     public void displayHomePage() {
         for (int i = 0; i < 50; i++) {
             System.out.print("            -");
@@ -18,21 +17,54 @@ public class Homepage {
         for (int i = 0; i < 50; i++) {
             System.out.print("            -");
         }
+
+    
         System.out.println();
         System.out.println("Please choose an option:");
-        System.out.println("1) Game Store");
-        System.out.println("2) My Library");
-        System.out.println("3) Game Pass");
+        System.out.println("1) " + getUsername());
+        System.out.println("2) Game Store");
+        System.out.println("3) My Library");
+        System.out.println("4) Game Pass");
         int n = sc.nextInt();
         switch (n) {
             case 1:
-                store.gameStore();
-            
+                myDetails();
                 break;
-        
+            case 2:
+                store.gameStore();
+                break;
             default:
+                System.err.println("Invalid Option ! Try Again.");
                 break;
         }
+
+    }
+
+    // public void addGamestoCart(){
+    //     if(duplicateObj == true){
+    //         store.action();
+    //     }else{
+        
+    //     }
+    // }
+
+    public void myDetails() {
+
+        for (int i = 0; i < 50; i++) {
+            System.out.print("            -");
+        }
+        System.out.println();
+        System.out.println(
+                "                                                                                          YOUR PROFILE                    ");
+        for (int i = 0; i < 50; i++) {
+            System.out.print("            -");
+        }
+        System.out.println();
+        System.out.println("Your Country : " + getLocation());
+        System.out.println("Name : " + getName() + " " + getLastname());
+        System.out.println("Email ID : " + getMail());
+        System.out.println("Contact : " + getContact());
+        System.out.println("Username : " + getUsername());
 
     }
 }

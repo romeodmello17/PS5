@@ -4,65 +4,139 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class PSregistration {
-    String username;
-    String password;
-    String cpassword;
-    long contact;
-    String mail;
+   
+    private String username;
+    private String password;
+    private String cpassword;
+    private long contact;
+    private String mail;
     String name;
     String lastname;
-    String location;
+    private String location;
     boolean isRegistered = false;
     boolean signPass = false;
+    public String getUsername() {
+        return username;
+    }
 
-    Homepage  homePageObj = new Homepage();
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getCpassword() {
+        return cpassword;
+    }
+
+    public void setCpassword(String cpassword) {
+        this.cpassword = cpassword;
+    }
+
+    public long getContact() {
+        return contact;
+    }
+
+    public void setContact(long contact) {
+        this.contact = contact;
+    }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
     
 
+        
+
     public void signIn() {
-        if (isRegistered == false) {
+        Scanner sc = new Scanner(System.in);
+        
+        if (!isRegistered) {
             System.out.println("Please register by Creating an PS Account!");
             createAcc();
         }
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Press 1 to sign in with Username");
-        System.out.println("Press 2 to sign in with Sign-In ID");
-        int n = sc.nextInt();
-        switch (n) {
-            case 1:
-                System.out.println("Enter your registered Username : ");
-                sc.nextLine();
-                String username = sc.nextLine();
-                if (username.equals(this.username)) {
-
-                } else {
-                    System.out.println("Username does not match! Try again.");
-                    signIn();
-                }
-                break;
-            case 2:
-                System.out.println("Enter your registered Sign-In ID : ");
-                sc.nextLine();
-                String mail = sc.nextLine();
-                if (mail.equals(this.mail)) {
-                } else {
-                    System.out.println("Sign-In ID does not match! Try again.");
-                    signIn();
-                }
-                break;
-
-            default:
-              
-        }
-                if (signPass == false) {
-                    System.out.println("Enter your Password");
-                    String pass = sc.nextLine();
-                    if (pass.equals(this.password)) {
-                        System.out.println("Sign In Successful Welcome " + this.name + " " + this.lastname);
-                        signPass=true;
+        
+        boolean signedIn = false;
+        do {
+            System.out.println("Press 1 to sign in with Username");
+            System.out.println("Press 2 to sign in with Sign-In ID");
+            int n = sc.nextInt();
+            sc.nextLine(); // Consume newline
+            
+            switch (n) {
+                case 1:
+                    System.out.println("Enter your registered Username : ");
+                    String username = sc.nextLine();
+                    if (username.equals(this.username)) {
+                        signedIn = true;
+                    } else {
+                        System.out.println("Username does not match! Try again.");
                     }
-                }
-                homePageObj.displayHomePage();
+                    break;
+                case 2:
+                    System.out.println("Enter your registered Sign-In ID : ");
+                    String mail = sc.nextLine();
+                    if (mail.equals(this.mail)) {
+                        signedIn = true;
+                    } else {
+                        System.out.println("Sign-In ID does not match! Try again.");
+                    }
+                    break;
+                default:
+                    System.out.println("Invalid option. Please try again.");
+            }
+        } while (!signedIn);
+    
+    
+        boolean signPass = false;
+        do {
+            System.out.println("Enter your Password");
+            String pass = sc.nextLine();
+            if (pass.equals(this.password)) {
+                System.out.println("Sign In Successful. Welcome " + this.name + " " + this.lastname);
+                signPass = true;
+          
+            } else {
+                System.out.println("Incorrect password. Please try again.");
+            }
+        } while (!signPass);
     }
+    
 
     // Account Creation Method
     public void createAcc() {
@@ -73,13 +147,13 @@ public class PSregistration {
 
         emailValidation();
         passwordValidation();
-        contactValidation();
-        onlineID();
-        captcha();
+       // contactValidation();
+       //onlineID();
+        //captcha();
 
         System.out.println("Your account has been created successfully.");
         isRegistered = true;
-        signIn();
+
 
     }
 

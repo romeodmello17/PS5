@@ -11,26 +11,28 @@ public class PlayStation5Simulator {
 	}
 
 	public static void main(String[] args) {
-		System.out.println("Enter 1 to Sign in");
-		System.out.println("Enter 2 to Create an Account");
+		System.out.println("Enter 1 to Create an Account");
+		System.out.println("Enter 2 to Sign in");
 		System.out.println("Enter 3 to Home Page");
 		System.out.println("Enter 4 to Exit");
 
 		Scanner sc = new Scanner(System.in);
 		int Choose = sc.nextInt();
 		sc.nextLine();
-		//PSregistration register = new PSregistration();
-		Homepage  homePage = new Homepage();
+		PSregistration register = new Homepage(); //upcasting
+		Homepage hp= (Homepage)register; //downcasting
 
 		switch (Choose) {
 			case 1:
-				// register.signIn();
+			register.createAcc();
+			
 			case 2:
+			register.signIn();
 
-				// register.createAcc();
+				
 
 			case 3:
-				homePage.displayHomePage();
+				hp.displayHomePage();
 
 				break;
 			case 4:
