@@ -4,9 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Store extends Payments {
+public class Store implements PaymentMethod {
+    PSregistration psregistration = new PSregistration();
 
     static Store store = new Store();
+    // Homepage homepage = new Homepage();
+
     Scanner sc = new Scanner(System.in);
     String g_name;
     String g_description;
@@ -30,6 +33,7 @@ public class Store extends Payments {
     }
 
     static List<Store> cart = new ArrayList<>();
+    static List<Store> library = new ArrayList<>();
     static List<Store> actionGames = new ArrayList<>();
     static List<Store> role_playingGames = new ArrayList<>();
     static List<Store> strategyGames = new ArrayList<>();
@@ -103,6 +107,7 @@ public class Store extends Payments {
 
     public void displayCartOption() throws Exception {
         Scanner sc = new Scanner(System.in);
+        System.out.println("");
         System.out.println("Enter 1 to Display Cart");
         System.out.println("Enter 2 to Go back");
         int input = sc.nextInt();
@@ -133,13 +138,22 @@ public class Store extends Payments {
         System.out.println("");
         if (cart.isEmpty()) {
             System.out.println("Your cart is empty.");
+            gameStore();
         } else {
             System.out.println("Your cart contains the following games:");
-            for (int i = 0; i < cart.size(); i++) {
-                Store game = cart.get(i);
-                System.out.println((i + 1) + ". " + game.g_name);
+            int index = 1;
+            for (Store game : cart) {
+                System.out.println(index + ". " + game.g_name + " " + game.g_price);
+                index++;
             }
+
         }
+        double total = 0;
+        for (Store t : Store.cart) {
+            total += t.g_price;
+        }
+        System.out.println("Total Amount : Rs." + total);
+
         System.out.println("");
         System.out.println("Enter 1 for Proceed to Payment");
         System.out.println("Enter 2 to Go Back");
@@ -159,13 +173,29 @@ public class Store extends Payments {
 
     }
 
+    public void creditCardPayment() {
+
+    }
+
+    public void payPalPayment() {
+
+    }
+
+    public void upiPayment() {
+
+    }
+
     public void payment() throws Exception {
+        PaymentMethod credit = new Payments();
+        PaymentMethod paypal = new Payments();
+        PaymentMethod upi = new Payments();
+
         for (int i = 0; i < 50; i++) {
             System.out.print("            -");
         }
         System.out.println();
         System.out.println(
-                "                                                                                                        ");
+                "                                                                                                  PAYMENT OPTIONS      ");
         for (int i = 0; i < 50; i++) {
             System.out.print("            -");
         }
@@ -179,13 +209,13 @@ public class Store extends Payments {
         int choice = sc.nextInt();
         switch (choice) {
             case 1:
-                creditCardPayment();
+                credit.creditCardPayment();
                 break;
             case 2:
-                payPalPayment();
+                paypal.payPalPayment();
                 break;
             case 3:
-                upiPayment();
+                upi.upiPayment();
                 break;
             case 4:
                 displayCart();
@@ -194,6 +224,76 @@ public class Store extends Payments {
                 System.err.println("Invalid Option! Try Again.");
                 payment();
                 break;
+        }
+    }
+
+    public void afterPayment() throws Exception {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("");
+        System.out.println("Enter 1 to Go to Your Library");
+        System.out.println("Enter 2 to Go to Game Store");
+        int choice = sc.nextInt();
+        switch (choice) {
+            case 1:
+                myLibrary();
+                break;
+            case 2:
+                gameStore();
+                break;
+            default:
+                System.err.println("Invalid Option! Try Again.");
+                afterPayment();
+                break;
+        }
+
+    }
+
+    public void addLibrary() {
+        Store.library.addAll(Store.cart);
+        Store.cart.clear();
+    }
+
+    public void myLibrary() throws Exception {
+        Scanner sc = new Scanner(System.in);
+        for (int i = 0; i < 50; i++) {
+            System.out.print("            -");
+        }
+        System.out.println();
+        System.out.println(
+                "                                                                                                  YOUR GAMES      ");
+        for (int i = 0; i < 50; i++) {
+            System.out.print("            -");
+        }
+        System.out.println("");
+
+        if (Store.library.isEmpty()) {
+            System.out.println("");
+            System.out.println("Your Library is empty.");
+            System.out.println("Add some Games to your Library.");
+            System.out.println("");
+            store.gameStore();
+        } else {
+            System.out.println("Your Library contains the following games:");
+            int index = 1;
+            for (Store game : Store.library) {
+                System.out.println(index + ". " + game.g_name);
+                index++;
+            }
+
+        }
+        System.out.println("");
+        System.out.println("Enter 1 for Game Store");
+        System.out.println("Enter 2 to Exit");
+        int choice = sc.nextInt();
+        if (choice == 1) {
+            store.gameStore();
+        } else if (choice == 2) {
+            System.out.println("PS5 Exiting....");
+            Thread.sleep(1000);
+            System.exit(0);
+        }else{
+            System.out.println("Enter Above Option Only");
+            myLibrary();
         }
     }
 
@@ -255,8 +355,16 @@ public class Store extends Payments {
         sc.nextLine();
         switch (input) {
             case 1:
-                action();
-                actionCart();
+                if (psregistration.isRegistered == true) {
+                    action();
+                    actionCart();
+                } else {
+                    System.out.println("Please Sign Up to Proceed");
+                    psregistration.signIn();
+                    action();
+                    actionGame();
+
+                }
                 break;
             case 2:
                 gameStore();
@@ -343,8 +451,16 @@ public class Store extends Payments {
         sc.nextLine();
         switch (input) {
             case 1:
-                role();
-                rolePlayingCart();
+                if (psregistration.isRegistered == true) {
+                    role();
+                    rolePlayingCart();
+                } else {
+                    System.out.println("Please Sign Up to Proceed");
+                    psregistration.signIn();
+                    role();
+                    rolePlaying();
+                }
+
                 break;
             case 2:
                 gameStore();
@@ -430,8 +546,16 @@ public class Store extends Payments {
         sc.nextLine();
         switch (input) {
             case 1:
-                strategy();
-                strategyCart();
+                if (psregistration.isRegistered == true) {
+
+                    strategy();
+                    strategyCart();
+                } else {
+                    System.out.println("Please Sign Up to Proceed");
+                    psregistration.signIn();
+                    strategy();
+                    strategyGame();
+                }
                 break;
             case 2:
                 gameStore();
@@ -520,8 +644,15 @@ public class Store extends Payments {
         sc.nextLine();
         switch (input) {
             case 1:
-                adventure();
-                adventureCart();
+                if (psregistration.isRegistered == true) {
+                    adventure();
+                    adventureCart();
+                } else {
+                    System.out.println("Please Sign Up to Proceed");
+                    psregistration.signIn();
+                    adventure();
+                    adventureGame();
+                }
                 break;
             case 2:
                 gameStore();
@@ -607,8 +738,15 @@ public class Store extends Payments {
         sc.nextLine();
         switch (input) {
             case 1:
+            if(psregistration.isRegistered==true){
                 simulation();
                 simulationCart();
+            } else {
+                System.out.println("Please Sign Up to Proceed");
+                psregistration.signIn();
+                simulation();
+                simulationGame();
+            }
                 break;
             case 2:
                 gameStore();

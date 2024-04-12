@@ -14,6 +14,7 @@ public class PSregistration {
     String lastname;
     String location;
     boolean isRegistered = false;
+    boolean isSignedUp = false;
     boolean signPass = false;
 
     public String getUsername() {
@@ -80,7 +81,7 @@ public class PSregistration {
         this.location = location;
     }
 
-    public void signIn() {
+    public void signIn() throws InterruptedException {
         Scanner sc = new Scanner(System.in);
 
         if (!isRegistered) {
@@ -93,7 +94,7 @@ public class PSregistration {
             System.out.println("Press 1 to sign in with Username");
             System.out.println("Press 2 to sign in with Sign-In ID");
             int n = sc.nextInt();
-            sc.nextLine(); 
+            sc.nextLine();
 
             switch (n) {
                 case 1:
@@ -126,6 +127,7 @@ public class PSregistration {
             if (pass.equals(this.password)) {
                 System.out.println("Sign In Successful. Welcome " + this.name + " " + this.lastname);
                 signPass = true;
+                isSignedUp = true;
 
             } else {
                 System.out.println("Incorrect password. Please try again.");
@@ -134,9 +136,16 @@ public class PSregistration {
     }
 
     // Account Creation Method
-    public void createAcc() {
+    public void createAcc() throws InterruptedException {
         Scanner sc = new Scanner(System.in);
-        System.out.println("SONY");
+        Thread.sleep(500);
+        System.out.println(
+                "                                                                                                           SONY");
+        System.out.println(
+                "------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+
+        Thread.sleep(700);
+        System.out.println("");
         System.out.print("Enter your Country : ");
         location = sc.nextLine();
 

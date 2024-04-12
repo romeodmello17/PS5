@@ -5,8 +5,11 @@ import java.util.Scanner;
 public class Homepage extends PSregistration {
 
     Scanner sc = new Scanner(System.in);
+    PSregistration ps = new PSregistration();
+
     Store store = new Store();
-boolean duplicateObj = false;
+    boolean duplicateObj = false;
+
     public void displayHomePage() throws Exception {
         for (int i = 0; i < 50; i++) {
             System.out.print("            -");
@@ -18,13 +21,12 @@ boolean duplicateObj = false;
             System.out.print("            -");
         }
 
-    
         System.out.println();
         System.out.println("Please choose an option:");
-        System.out.println("1) " + getUsername());
+        System.out.println("1) Your profile");
         System.out.println("2) Game Store");
         System.out.println("3) My Library");
-        System.out.println("4) Game Pass");
+        System.out.println("4) Exit");
         int n = sc.nextInt();
         switch (n) {
             case 1:
@@ -33,8 +35,13 @@ boolean duplicateObj = false;
             case 2:
                 store.gameStore();
                 break;
-                case 3:
-                // store.myLibrary();
+            case 3:
+                store.myLibrary();
+                break;
+                case 4:
+                System.out.println("PS5 Exiting....");
+                Thread.sleep(1000);
+                System.exit(0);
                 break;
 
             default:
@@ -46,14 +53,15 @@ boolean duplicateObj = false;
     }
 
     // public void addGamestoCart(){
-    //     if(duplicateObj == true){
-    //         store.action();
-    //     }else{
-        
-    //     }
+    // if(duplicateObj == true){
+    // store.action();
+    // }else{
+
+    // }
     // }
 
-    public void myDetails() {
+    public void myDetails() throws Exception {
+        Scanner sc = new Scanner(System.in);
 
         for (int i = 0; i < 50; i++) {
             System.out.print("            -");
@@ -70,6 +78,29 @@ boolean duplicateObj = false;
         System.out.println("Email ID : " + getMail());
         System.out.println("Contact : " + getContact());
         System.out.println("Username : " + getUsername());
+
+        System.out.println("");
+        System.out.println("1) Game Store");
+        System.out.println("2) Home Page");
+        System.out.println("3) Exit");
+        int option = sc.nextInt();
+        switch (option) {
+            case 1:
+                store.gameStore();
+                break;
+            case 2:
+                displayHomePage();
+                break;
+            case 3:
+                System.out.println("PS5 Exiting...");
+                Thread.sleep(1000);
+                System.exit(0);
+                break;
+                default:
+                System.out.println("Enter Above Options Only");
+                myDetails();
+                break;
+        }
 
     }
 }

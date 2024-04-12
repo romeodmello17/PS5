@@ -7,10 +7,11 @@ public class PlayStation5Simulator {
 		System.out.println(
 				"                                                              					 Welcome to PlayStation 5");
 		System.out.println(
-				"----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+				"------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
 	}
 
 	public static void main(String[] args) throws Exception {
+		Thread.sleep(700);
 		System.out.println("Enter 1 to Create an Account");
 		System.out.println("Enter 2 to Sign in");
 		System.out.println("Enter 3 to Home Page");
@@ -19,24 +20,23 @@ public class PlayStation5Simulator {
 		Scanner sc = new Scanner(System.in);
 		int Choose = sc.nextInt();
 		sc.nextLine();
-		PSregistration register = new Homepage(); //upcasting
-		Homepage hp= (Homepage)register; //downcasting
+		PSregistration register = new Homepage(); 
+		Homepage hp = (Homepage) register; 
 
 		switch (Choose) {
 			case 1:
-			register.createAcc();
-			
-			case 2:
-			register.signIn();
+				register.createAcc();
 
-				
+			case 2:
+				register.signIn();
 
 			case 3:
 				hp.displayHomePage();
 
 				break;
 			case 4:
-				System.out.println("Bye Bye");
+				System.out.println("PS5 Exiting....");
+				Thread.sleep(1000);
 				System.exit(0);
 				break;
 			default:
