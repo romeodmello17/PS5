@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Store {
+public class Store extends Payments {
 
     static Store store = new Store();
     Scanner sc = new Scanner(System.in);
@@ -44,7 +44,7 @@ public class Store {
                 + g_releaseDate + "\nDeveloped And Published By: " + g_developer + "\nInstall Size: " + g_size + "GB";
     }
 
-    public void gameStore() {
+    public void gameStore() throws Exception {
         for (int i = 0; i < 50; i++) {
             System.out.print("            -");
         }
@@ -101,7 +101,7 @@ public class Store {
         }
     }
 
-    public void displayCartOption() {
+    public void displayCartOption() throws Exception {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter 1 to Display Cart");
         System.out.println("Enter 2 to Go back");
@@ -113,11 +113,14 @@ public class Store {
             case 2:
                 gameStore();
             default:
+                System.err.println("Invalid Option! Try Again.");
+                displayCartOption();
                 break;
         }
     }
 
-    public static void displayCart() {
+    public void displayCart() throws Exception {
+        Scanner sc = new Scanner(System.in);
         for (int i = 0; i < 50; i++) {
             System.out.print("            -");
         }
@@ -137,13 +140,70 @@ public class Store {
                 System.out.println((i + 1) + ". " + game.g_name);
             }
         }
+        System.out.println("");
+        System.out.println("Enter 1 for Proceed to Payment");
+        System.out.println("Enter 2 to Go Back");
+        int choice = sc.nextInt();
+        switch (choice) {
+            case 1:
+                payment();
+                break;
+            case 2:
+                gameStore();
+                break;
+            default:
+                System.err.println("Invalid Option! Try Again.");
+                displayCart();
+                break;
+        }
+
+    }
+
+    public void payment() throws Exception {
+        for (int i = 0; i < 50; i++) {
+            System.out.print("            -");
+        }
+        System.out.println();
+        System.out.println(
+                "                                                                                                        ");
+        for (int i = 0; i < 50; i++) {
+            System.out.print("            -");
+        }
+        System.out.println("");
+        Scanner sc = new Scanner(System.in);
+        System.out.println("");
+        System.out.println("Enter 1 for Credit Card Payment");
+        System.out.println("Enter 2 for PayPal");
+        System.out.println("Enter 3 for UPI");
+        System.out.println("Enter 4 to go to cart");
+        int choice = sc.nextInt();
+        switch (choice) {
+            case 1:
+                creditCardPayment();
+                break;
+            case 2:
+                payPalPayment();
+                break;
+            case 3:
+                upiPayment();
+                break;
+            case 4:
+                displayCart();
+                break;
+            default:
+                System.err.println("Invalid Option! Try Again.");
+                payment();
+                break;
+        }
     }
 
     /*******************************
      * Methods for Games (Genres)
+     * 
      *******************************/
+    // --------------------------------------------------------------------Action
 
-    public static void actionGame() {
+    public static void actionGame() throws Exception {
         for (int i = 0; i < 50; i++) {
             System.out.print("            -");
         }
@@ -164,7 +224,7 @@ public class Store {
         store.actionCartOption();
     }
 
-    public void actionCart() {
+    public void actionCart() throws Exception {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter the numbers of games you want to add to cart (separated by spaces):");
         String input = sc.nextLine();
@@ -186,8 +246,9 @@ public class Store {
         store.displayCartOption();
     }
 
-    public void actionCartOption() {
+    public void actionCartOption() throws Exception {
         Scanner sc = new Scanner(System.in);
+        System.out.println("");
         System.out.println("Enter 1 to Cart");
         System.out.println("Enter 2 to Go back");
         int input = sc.nextInt();
@@ -200,6 +261,8 @@ public class Store {
             case 2:
                 gameStore();
             default:
+                System.err.println("Invalid Option! Try Again.");
+                actionCartOption();
                 break;
         }
     }
@@ -226,7 +289,9 @@ public class Store {
 
     }
 
-    public static void rolePlaying() {
+    // ---------------------------------------------------------------------Role-Playing
+
+    public static void rolePlaying() throws Exception {
         for (int i = 0; i < 50; i++) {
             System.out.print("            -");
         }
@@ -247,7 +312,7 @@ public class Store {
         store.roleCartOption();
     }
 
-    public void rolePlayingCart() {
+    public void rolePlayingCart() throws Exception {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter the numbers of games you want to add to cart (separated by spaces):");
         String input = sc.nextLine();
@@ -269,8 +334,9 @@ public class Store {
         store.displayCartOption();
     }
 
-    public void roleCartOption() {
+    public void roleCartOption() throws Exception {
         Scanner sc = new Scanner(System.in);
+        System.out.println("");
         System.out.println("Enter 1 to Cart");
         System.out.println("Enter 2 to Go back");
         int input = sc.nextInt();
@@ -283,6 +349,8 @@ public class Store {
             case 2:
                 gameStore();
             default:
+                System.err.println("Invalid Option! Try Again.");
+                roleCartOption();
                 break;
         }
     }
@@ -307,7 +375,9 @@ public class Store {
                 2099, "23/10/13", "Grinding Gear Games", 40));
     }
 
-    public static void strategyGame() {
+    // ---------------------------------------------------------------Strategy Games
+
+    public static void strategyGame() throws Exception {
         for (int i = 0; i < 50; i++) {
             System.out.print("            -");
         }
@@ -325,10 +395,57 @@ public class Store {
         for (Store game : strategyGames) {
             System.out.println(count++ + ". " + game);
         }
+        store.strategyCartOption();
 
     }
 
+    public void strategyCart() throws Exception {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter the numbers of games you want to add to cart (separated by spaces):");
+        String input = sc.nextLine();
+        String[] gameNumbers = input.split(" ");
+        for (String gameNumber : gameNumbers) {
+            try {
+                int index = Integer.parseInt(gameNumber);
+                if (index > 0 && index <= strategyGames.size()) {
+                    Store gameToAdd = strategyGames.get(index - 1);
+                    cart.add(gameToAdd);
+                    System.out.println(gameToAdd.g_name + " added to cart.");
+                } else {
+                    System.out.println("Invalid game index: " + index);
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input: " + gameNumber);
+            }
+        }
+        store.displayCartOption();
+    }
+
+    public void strategyCartOption() throws Exception {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("");
+        System.out.println("Enter 1 to Cart");
+        System.out.println("Enter 2 to Go back");
+        int input = sc.nextInt();
+        sc.nextLine();
+        switch (input) {
+            case 1:
+                strategy();
+                strategyCart();
+                break;
+            case 2:
+                gameStore();
+            default:
+                System.err.println("Invalid Option! Try Again.");
+                strategyCartOption();
+                break;
+        }
+    }
+
     public static void strategy() {
+
+        strategyGames.clear();
+
         strategyGames.add(new Store("PLANET ZOO",
                 "Build a world for wildlife in Planet Zoo. From the developers of Planet Coaster and Zoo Tycoon comes the ultimate zoo sim.",
                 537, "05/11/19", "Frontier Developments", 16));
@@ -347,7 +464,9 @@ public class Store {
 
     }
 
-    public static void adventureGame() {
+    // --------------------------------------------------------------------------Adventure
+
+    public static void adventureGame() throws Exception {
         Scanner sc = new Scanner(System.in);
         for (int i = 0; i < 50; i++) {
             System.out.print("            -");
@@ -366,20 +485,56 @@ public class Store {
         for (Store games : adventureGames) {
             System.out.println(count++ + ". " + games);
         }
-        System.out.println("");
-        System.out.print("Enter which game you want to buy : ");
-        int index = sc.nextInt();
-        for (Store cart : adventureGames) {
-            if (count == index) {
-                adventureGames.add(cart);
-                System.out.println("Game added to cart");
-                return;
+
+        store.adventureCartOption();
+    }
+
+    public void adventureCart() throws Exception {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter the numbers of games you want to add to cart (separated by spaces):");
+        String input = sc.nextLine();
+        String[] gameNumbers = input.split(" ");
+        for (String gameNumber : gameNumbers) {
+            try {
+                int index = Integer.parseInt(gameNumber);
+                if (index > 0 && index <= adventureGames.size()) {
+                    Store gameToAdd = adventureGames.get(index - 1);
+                    cart.add(gameToAdd);
+                    System.out.println(gameToAdd.g_name + " added to cart.");
+                } else {
+                    System.out.println("Invalid game index: " + index);
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input: " + gameNumber);
             }
         }
+        store.displayCartOption();
+    }
 
+    public void adventureCartOption() throws Exception {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("");
+        System.out.println("Enter 1 to Cart");
+        System.out.println("Enter 2 to Go back");
+        int input = sc.nextInt();
+        sc.nextLine();
+        switch (input) {
+            case 1:
+                adventure();
+                adventureCart();
+                break;
+            case 2:
+                gameStore();
+            default:
+                System.err.println("Invalid Option! Try Again.");
+                adventureCartOption();
+                break;
+        }
     }
 
     public static void adventure() {
+        adventureGames.clear();
+
         adventureGames.add(new Store("BALDUR'S GATE 3",
                 "Baldur's Gate 3 is a story-rich, party-based RPG set in the universe of Dungeons & Dragons, where your choices shape a tale of fellowship and betrayal, survival and sacrifice, and the lure of absolute power.",
                 2999, "03/08/23", "Larian Studios", 150));
@@ -398,7 +553,9 @@ public class Store {
 
     }
 
-    public static void simulationGame() {
+    // ------------------------------------------------------------------------------Simulation
+
+    public static void simulationGame() throws Exception {
         for (int i = 0; i < 50; i++) {
             System.out.print("            -");
         }
@@ -416,9 +573,56 @@ public class Store {
         for (Store games : simulationGames) {
             System.out.println(count++ + ". " + games);
         }
+        store.simulationCartOption();
+    }
+
+    public void simulationCart() throws Exception {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter the numbers of games you want to add to cart (separated by spaces):");
+        String input = sc.nextLine();
+        String[] gameNumbers = input.split(" ");
+        for (String gameNumber : gameNumbers) {
+            try {
+                int index = Integer.parseInt(gameNumber);
+                if (index > 0 && index <= simulationGames.size()) {
+                    Store gameToAdd = simulationGames.get(index - 1);
+                    cart.add(gameToAdd);
+                    System.out.println(gameToAdd.g_name + " added to cart.");
+                } else {
+                    System.out.println("Invalid game index: " + index);
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input: " + gameNumber);
+            }
+        }
+        store.displayCartOption();
+    }
+
+    public void simulationCartOption() throws Exception {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("");
+        System.out.println("Enter 1 to Cart");
+        System.out.println("Enter 2 to Go back");
+        int input = sc.nextInt();
+        sc.nextLine();
+        switch (input) {
+            case 1:
+                simulation();
+                simulationCart();
+                break;
+            case 2:
+                gameStore();
+            default:
+                System.err.println("Invalid Option! Try Again.");
+                simulationCartOption();
+                break;
+        }
     }
 
     public static void simulation() {
+
+        simulationGames.clear();
+
         simulationGames.add(new Store("ARMA 3",
                 "Experience true combat gameplay in a massive military sandbox. Deploying a wide variety of single- and multiplayer content, over 20 vehicles and 40 weapons, and limitless opportunities for content creation, this is the PC's premier military game.",
                 1999, "12/09/12", "Bohemia Interactive", 70));
@@ -435,23 +639,26 @@ public class Store {
                 "Play with life and discover the possibilities. Unleash your imagination and create a world of Sims that's wholly unique. Explore and customize every detail from Sims to homes-and much more.",
                 0, "02/09/14", "Maxis Arts", 51));
 
-        System.out.println("");
-        Scanner sc = new Scanner(System.in);
-        System.out.println("1) Add Games to cart");
-        System.out.println("2) Go Back");
-        int option = sc.nextInt();
-        switch (option) {
-            case 1:
-
-                break;
-
-            default:
-                break;
-        }
-
     }
 
-    public void options() {
-
-    }
 }
+
+// System.out.println("");
+// Scanner sc = new Scanner(System.in);
+// System.out.println("1) Add Games to cart");
+// System.out.println("2) Go Back");
+// int option = sc.nextInt();
+// switch (option) {
+// case 1:
+
+// break;
+
+// default:
+// break;
+// }
+
+// }
+
+// public void options() {
+
+// }

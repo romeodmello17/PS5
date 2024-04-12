@@ -10,7 +10,7 @@ public class PlayStation5Simulator {
 				"----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		System.out.println("Enter 1 to Create an Account");
 		System.out.println("Enter 2 to Sign in");
 		System.out.println("Enter 3 to Home Page");

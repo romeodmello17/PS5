@@ -7,7 +7,7 @@ public class Homepage extends PSregistration {
     Scanner sc = new Scanner(System.in);
     Store store = new Store();
 boolean duplicateObj = false;
-    public void displayHomePage() {
+    public void displayHomePage() throws Exception {
         for (int i = 0; i < 50; i++) {
             System.out.print("            -");
         }
@@ -33,8 +33,13 @@ boolean duplicateObj = false;
             case 2:
                 store.gameStore();
                 break;
+                case 3:
+                // store.myLibrary();
+                break;
+
             default:
                 System.err.println("Invalid Option ! Try Again.");
+                displayHomePage();
                 break;
         }
 

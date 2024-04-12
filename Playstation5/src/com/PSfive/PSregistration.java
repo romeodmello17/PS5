@@ -4,17 +4,18 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class PSregistration {
-   
+
     private String username;
     private String password;
     private String cpassword;
-    private long contact;
     private String mail;
+    long contact;
     String name;
     String lastname;
-    private String location;
+    String location;
     boolean isRegistered = false;
     boolean signPass = false;
+
     public String getUsername() {
         return username;
     }
@@ -79,25 +80,21 @@ public class PSregistration {
         this.location = location;
     }
 
-    
-
-        
-
     public void signIn() {
         Scanner sc = new Scanner(System.in);
-        
+
         if (!isRegistered) {
             System.out.println("Please register by Creating an PS Account!");
             createAcc();
         }
-        
+
         boolean signedIn = false;
         do {
             System.out.println("Press 1 to sign in with Username");
             System.out.println("Press 2 to sign in with Sign-In ID");
             int n = sc.nextInt();
-            sc.nextLine(); // Consume newline
-            
+            sc.nextLine(); 
+
             switch (n) {
                 case 1:
                     System.out.println("Enter your registered Username : ");
@@ -121,8 +118,7 @@ public class PSregistration {
                     System.out.println("Invalid option. Please try again.");
             }
         } while (!signedIn);
-    
-    
+
         boolean signPass = false;
         do {
             System.out.println("Enter your Password");
@@ -130,13 +126,12 @@ public class PSregistration {
             if (pass.equals(this.password)) {
                 System.out.println("Sign In Successful. Welcome " + this.name + " " + this.lastname);
                 signPass = true;
-          
+
             } else {
                 System.out.println("Incorrect password. Please try again.");
             }
         } while (!signPass);
     }
-    
 
     // Account Creation Method
     public void createAcc() {
@@ -147,13 +142,12 @@ public class PSregistration {
 
         emailValidation();
         passwordValidation();
-       // contactValidation();
-       //onlineID();
-        //captcha();
+        contactValidation();
+        onlineID();
+        captcha();
 
         System.out.println("Your account has been created successfully.");
         isRegistered = true;
-
 
     }
 
@@ -232,7 +226,7 @@ public class PSregistration {
         do {
             System.out.println("Enter your contact number: ");
             if (sc.hasNextLong()) {
-                long contact = sc.nextLong();
+                contact = sc.nextLong();
                 if (contact >= 999999999L && contact <= 9999999999L) {
                     isValid = true;
                 } else {
